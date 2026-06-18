@@ -11,6 +11,10 @@ The goal is to build a system that can answer natural language queries about Gal
 4.  Storing these embeddings in a searchable vector index.
 5.  Using a Large Language Model (LLM) to generate answers based on the retrieved information.
 
+## Architecture
+
+![](architecture.png)
+
 ## Data Processing
 
 ### Data Extraction and Formatting
@@ -54,6 +58,16 @@ Each tool or workflow is treated as a single, distinct document.
     - When a user submits a prompt, the system searches the vector database to find the most relevant documents.
     - The retrieved documents are then passed as context to a locally running LLM (via Ollama) to generate a final answer.
 
+### Supported Embedding Query Types
+The embeddings from the current schema can support the following types of queries:
+
+- Intent-based tool search (e.g., “methods for comparing distance matrices”)
+- Functional matching (e.g., “matrix comparison tools”)
+- Analysis type search (e.g., “PCA-like methods”, “dimensionality reduction tools”)
+- Workflow filtering (e.g., “workflow-compatible diversity tools”, “pipeline-ready QIIME2 tools”)
+- Section/category search (e.g., “QIIME2 ordination tools”, “QIIME2 diversity analysis”)
+- Description/name fuzzy matching (e.g., “mantel test tool”, “pcoa qiime2”)
+- Similarity search (e.g., “alternatives to PCoA”, “similar to Mantel test”)
 
 ## Example
 Query: 
@@ -92,5 +106,45 @@ NAME: qiime2 quality-control evaluate-composition
 DESCRIPTION: Evaluate expected vs. observed taxonomic composition of samples
 IS_WORKFLOW_COMPATIBLE: True
 PANEL_SECTION_NAME: QIIME2
+================================================================================
+```
+
+## Example
+Query: 
+```
+methods for comparing distance matrices
+```
+
+Output with k=5:
+```
+TYPE: TOOL
+NAME: SNP distance matrix
+DESCRIPTION: Compute distance in SNPs between all sequences in a FASTA file
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: Variant Calling
+================================================================================
+TYPE: TOOL
+NAME: Evaluate pairwise distances
+DESCRIPTION: or compute affinity or kernel for sets of samples
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: Machine Learning
+================================================================================
+TYPE: TOOL
+NAME: qiime2 diversity mantel
+DESCRIPTION: Apply the Mantel test to two distance matrices
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: QIIME2
+================================================================================
+TYPE: TOOL
+NAME: Pairwise.seqs
+DESCRIPTION: calculate uncorrected pairwise distances between sequences
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: Mothur
+================================================================================
+TYPE: TOOL
+NAME: hicCorrelate
+DESCRIPTION: compute pairwise correlations between multiple Hi-C contact matrices
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: HiCExplorer
 ================================================================================
 ```
