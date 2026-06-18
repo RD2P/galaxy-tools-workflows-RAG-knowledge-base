@@ -1,8 +1,16 @@
+import os
+from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+load_dotenv()
 
-def parse_tools(file_path):
+model = SentenceTransformer(
+    "sentence-transformers/all-MiniLM-L6-v2",
+    token=os.getenv("HF_TOKEN")
+)
+
+
+def parse_tools(file_path) -> list[str]:
     """Parses the tools from the given file path. Each tool is separated by an empty line."""
     tools = []
     current = []
@@ -22,7 +30,8 @@ def parse_tools(file_path):
 
     return tools
 
-def to_embedding_text(tool):
+
+def to_embedding_text(tool: str) -> str:
     """Structures the tool information for embedding."""
     return f"""
 TYPE: TOOL
@@ -30,8 +39,8 @@ TYPE: TOOL
 """.strip()
 
 
-tools = parse_tools("data/tools.txt")
+tools: list[str] = parse_tools("data/tools.txt")
 
-texts = [to_embedding_text(tool) for tool in tools]
+texts: list[str] = [to_embedding_text(tool) for tool in tools]
 
 embeddings = model.encode(texts, convert_to_numpy=True)
