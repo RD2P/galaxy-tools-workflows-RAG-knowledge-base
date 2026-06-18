@@ -54,5 +54,43 @@ Each tool or workflow is treated as a single, distinct document.
     - When a user submits a prompt, the system searches the vector database to find the most relevant documents.
     - The retrieved documents are then passed as context to a locally running LLM (via Ollama) to generate a final answer.
 
-## Future Work
-Two-Step Retrieval: Implement a more advanced retrieval process where a cross-encoder reranks the top-k results from the initial bi-encoder search to improve relevance.
+
+## Example
+Query: 
+```
+Which tools are used for quality control?
+```
+
+Output with k=5:
+```
+TYPE: TOOL
+NAME: PRINSEQ
+DESCRIPTION: to process quality of sequences
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: FASTQ Quality Control
+================================================================================
+TYPE: TOOL
+NAME: scHicQualityControl
+DESCRIPTION: quality control for single-cell Hi-C interaction matrices
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: HiCExplorer
+================================================================================
+TYPE: TOOL
+NAME: chicQualityControl
+DESCRIPTION: generates an estimate of the quality of each viewpoint
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: HiCExplorer
+================================================================================
+TYPE: TOOL
+NAME: Falco
+DESCRIPTION: An alternative, more performant implementation of FastQC for high throughput sequence quality control
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: FASTQ Quality Control
+================================================================================
+TYPE: TOOL
+NAME: qiime2 quality-control evaluate-composition
+DESCRIPTION: Evaluate expected vs. observed taxonomic composition of samples
+IS_WORKFLOW_COMPATIBLE: True
+PANEL_SECTION_NAME: QIIME2
+================================================================================
+```
