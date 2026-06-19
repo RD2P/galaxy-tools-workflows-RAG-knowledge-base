@@ -27,7 +27,7 @@ while True:
     
     distances, indices = index.search(query_embedding, k=5)
     
-    print("Query:", query)
+    print("\n\nQuery:", query)
     # print("Distances:\n", distances)
     # print("Indices:\n", indices)
     
