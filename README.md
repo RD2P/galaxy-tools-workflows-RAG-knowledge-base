@@ -148,3 +148,39 @@ IS_WORKFLOW_COMPATIBLE: True
 PANEL_SECTION_NAME: HiCExplorer
 ================================================================================
 ```
+
+## Installation
+After cloning the repo, follow the following steps.
+
+### 1. Environment setup
+```
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+### 2. Required environment variables
+
+Create a token on HuggingFace to 
+Create a `.env` file in the project root:
+
+```
+HF_TOKEN=your_huggingface_token
+```
+
+### 3. Run the script
+NOTE: the tools index has already been created (`tools.faiss`), so there's no need to run `embed.py`.
+
+```
+python3 main.py
+```
+
+### 4. Usage
+
+Enter a natural language query in the terminal. Top-5 nearest tools from the FAISS index will be printed.
+
+### 5. Exit
+
+```
+exit
+```
